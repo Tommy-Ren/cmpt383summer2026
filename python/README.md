@@ -6,7 +6,7 @@
 
 **List comprehensions** are a concise way to create lists based on mathematical
 set notation. For example, the set of all squares of the numbers 1 to 5 is 
-${x^2 : x \in {1, 2, 3, 4, 5}}$. In Python we can write:
+$\{x^2 : x \in \{1, 2, 3, 4, 5\}\}$. In Python we can write:
 
 ```python
 >>> [x**2 for x in [1, 2, 3, 4, 5]]
