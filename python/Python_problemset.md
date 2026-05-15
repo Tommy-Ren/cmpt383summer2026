@@ -71,7 +71,7 @@ be:
 3. cherry
 ```
 
-## Question 8
+## Question 7
 
 Write a function called `get_max(lst)` that uses `enumerate` to return the
 largest value in the list. Assume the list is non-empty and is either all
@@ -80,12 +80,12 @@ numbers or all strings.
 For example, `get_max([4, 8, 4, 1])` should return 8, and `get_max(['soap', 'cat', 'dog'])` 
 should return `'soap'`.
 
-## Question 9
+## Question 8
 
 Explain the **iterator protocol** in Python. What are the methods required? What
 happens when there is no more data to iterate over?
 
-## Question 10
+## Question 9
 
 Using the **iterator protocol**, write an iterator that iterates over the
 letters of a given string in *reverse* order.
@@ -105,12 +105,12 @@ a
 c
 ```
 
-## Question 11
+## Question 10
 
 Explain to another a programmer what it means to that Python strings are
 **iterable** but not **iterators**.
 
-## Question 12
+## Question 11
 
 Using the **iterator protocol**, write your own version of `enumerate` called
 `My_enumerate` that works with lists like the built-in `enumerate`.
@@ -130,7 +130,7 @@ should output:
 2 c
 ```
 
-## Question 13
+## Question 12
 
 Write a generator function (using `yield`) called `gen_longer_than(n, lst)` that
 generates all the strings in `lst` that are longer than `n`. For example:
@@ -148,7 +148,7 @@ hamster
 bird
 ```
 
-## Question 14
+## Question 13
 
 Write a generator function (using `yield`) called `gen_lines_of(filename)` that
 generates the lines of a file one at a time. For example, suppose the file
@@ -177,7 +177,7 @@ Should print:
 4: Never mind. It's pointless.
 ```
 
-## Question 15
+## Question 14
 
 Write a function called `make_bounds_checker(min, max)` that returns a
 **closure** that checks if a given value is greater than or equal to `min` and
@@ -196,7 +196,7 @@ print(is_teen(12)) # False
 print(is_teen(20)) # False
 ```
 
-## Question 16
+## Question 15
 
 Write a function called `make_bad_str_counter(bad_strs)` that returns a
 **closure** that counts how many of the strings in `bad_strs` occur 1 or more
@@ -216,12 +216,12 @@ print(num_bad_actions(['kick', 'kick', 'kick']))         # 1
 The second and third `print`s show that multiple occurrences of the same bad
 word should only be counted once.
 
-## Question 17
+## Question 16
 
 Explain to another programmer what a **decorator** is in Python. Give an example
 of how to use one.
 
-## Question 18
+## Question 17
 
 Write a Python decorator called `always_return_str` that makes a sure a function
 always returns by calling `str` on the result.
@@ -256,7 +256,7 @@ one True
  True
 ```
 
-## Question 19
+## Question 18
 
 Write a context manager called `LoggedTimer` measures the time taken to run a
 block of a code and logs the results in a file. It should work like this:
@@ -289,7 +289,7 @@ Elapsed: 1.005 seconds
 
 In the context manager, use the `__init__` method to store the filename.
 
-## Question 20
+## Question 19
 
 Write a function called `classify_grade(score)` that uses the `match` statement
 to print the grade for the given score (as shown below). You can assume `score`
@@ -312,7 +312,7 @@ print(classify_grade(71))   # 71 is a C
 print(classify_grade(48))   # 48 is a D
 ```
 
-## Question 21
+## Question 20
 
 Write a function called `calculate_area(shape)` that uses the `match` statement
 to calculate and return (not print!) the area of a given shape. You can assume
