@@ -307,9 +307,10 @@ For example:
 
 ```python
 print(classify_grade(95))   # 95 is an A
-print(classify_grade(83))   # 83 is a B
-print(classify_grade(71))   # 71 is a C
-print(classify_grade(48))   # 48 is a D
+print(classify_grade(80))   # 80 is a B
+print(classify_grade(79))   # 79 is a C
+print(classify_grade(62))   # 62 is a D
+print(classify_grade(48))   # 48 is a F
 ```
 
 ## Question 20
