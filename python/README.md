@@ -742,8 +742,10 @@ class My_enumerate:
     
     def __next__(self):
         if self.index < len(self.lst):
+            i = self.index
+            value = self.lst[i]
             self.index += 1
-            return self.index, self.lst[self.index - 1]
+            return i, value
         else:
             raise StopIteration
 ```
