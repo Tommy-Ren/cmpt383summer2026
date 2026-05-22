@@ -130,6 +130,18 @@ should output:
 2 c
 ```
 
+## Question 11.1
+
+Write a generator function (using `yield`) to make your own version of each of
+these built-in functions:
+
+- `my_range(a, b)` works the same as `range(a, b)`, i.e. it generates the
+  numbers from `a`, `a + 1`, `a + 2`, ..., `b` - 1.
+  
+- `my_zip(A, B)` works the same as `zip(A, B)`, i.e. it generates the pairs of
+  elements from `A` and `B`. You can assume `A` and `B` are lists of the same
+  length, there are only two lists.
+
 ## Question 12
 
 Write a generator function (using `yield`) called `gen_longer_than(n, lst)` that
