@@ -1,27 +1,12 @@
 ## Go
 
-## Sample Programs
-
-- [hello_world.go](hello_world.go)
-- [hello_name.go](hello_name.go)
-- [count_up.go](count_up.go)
-- [count_down.go](count_down.go)
-- [primes.go](primes.go)
-- [numbered_list.go](numbered_list.go)
-- [stats.go](stats.go)
-- [functionsAndFunctions.go](functionsAndFunctions.go)
-- [wordcount.go](wordcount.go)
-- [bits.go](bits.go)
-- [shapes.go](shapes.go)
-- [names.go](names.go)
-
 ## Reading
 
 For general help about Go, check out the [Go tutorial getting started
 page](https://go.dev/doc/tutorial/getting-started).
 
 
-### Tour of Go
+## Tour of Go
 
 Please read the following parts of [the Go tour](https://go.dev/tour/list)
 (try the coding exercises they give as practice):
@@ -36,8 +21,7 @@ Please read the following parts of [the Go tour](https://go.dev/tour/list)
 
 ## Go Lectures
 
-### Lecture 1, Go: Basics
-### Lecture 2, Go: Basics
+### Lecture 1, 2: Go Basics
 
 - [Intro to Go](go2009.pptx)
 
@@ -118,8 +102,7 @@ a feel for the language.
 - [primes.go](examples/primes/main.go)
 - [defer.go](examples/defer/main.go)
 
-### Lecture 3, Go: Arrays, Slices, and Maps
-### Lecture 4, Go: Arrays, Slices, and Maps
+### Lecture 3, 4: Arrays, Slices, and Maps
 
 Go has unusual implementing of lists. Go has **arrays**, which are like C
 arrays. Go arrays are a contiguous block of memory, and they can't be made
@@ -145,15 +128,14 @@ the programmer to keep track of this.
 - [functionsAndClosures.go](examples/functionsAndClosures/main.go)
 - [compose.go](examples/compose/main.go)
 
-### Lecture 5, Go: Types, Methods, and Interfaces
-### Lecture 6, Go: Types, Methods, and Interfaces
+### Lecture 5, 6: Types, Methods, and Interfaces
 
 - [point.go](examples/point/main.go)
 - Please see the notes in [interfaceDemo.md](interfaceDemo.md) and the
   associated code in [interface_Counter.go](examples/interface_Counter/main.go)
 - [shapes.go](examples/shapes/main.go)
 
-### Lecture 7, Go: Generics and Concurrency
+### Lecture 7: Generics and Concurrency
 
 Generics are a way to write code that can work with any type.
 
