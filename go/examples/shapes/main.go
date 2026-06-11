@@ -43,7 +43,7 @@ func (r Rectangle) area() float64 {
 }
 
 func (r Rectangle) perimeter() float64 {
-	return 2*r.width + 2*r.height
+	return 2*(r.width + r.height)
 }
 
 func (r Rectangle) name() string {

@@ -127,33 +127,33 @@ func main() {
 	printNamedSliceInfo("src", src)
 	printNamedSliceInfo("dst", dst)
 
-	//
-	// copy example 2
-	//
-	example("copy example 2")
-	src = []int{1, 2, 3}
-	dst = make([]int, 5)
+	// //
+	// // copy example 2
+	// //
+	// example("copy example 2")
+	// src = []int{1, 2, 3}
+	// dst = make([]int, 5)
 
-	example("before copy")
-	printNamedSliceInfo("src", src)
-	printNamedSliceInfo("dst", dst)
+	// example("before copy")
+	// printNamedSliceInfo("src", src)
+	// printNamedSliceInfo("dst", dst)
 
-	copy(dst[3:], src)
-	example("after copy(dst[2:], src)")
-	printNamedSliceInfo("src", src)
-	printNamedSliceInfo("dst", dst)
+	// copy(dst[3:], src)
+	// example("after copy(dst[2:], src)")
+	// printNamedSliceInfo("src", src)
+	// printNamedSliceInfo("dst", dst)
 
-	//
-	// copy example 3
-	//
-	example("copy example 3")
-	s = []int{1, 2, 3, 0, 0, 0}
+	// //
+	// // copy example 3
+	// //
+	// example("copy example 3")
+	// s = []int{1, 2, 3, 0, 0, 0}
 
-	example("before copy")
-	printNamedSliceInfo("s", s)
+	// example("before copy")
+	// printNamedSliceInfo("s", s)
 
-	copy(s[1:], s)
-	example("after copy(s[1:], s)")
-	printNamedSliceInfo("s", s)
+	// copy(s[1:], s)
+	// example("after copy(s[1:], s)")
+	// printNamedSliceInfo("s", s)
 
 } // main

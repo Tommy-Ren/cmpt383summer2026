@@ -13,8 +13,8 @@ package main
 import "fmt"
 
 func main() {
-	test_makeAdder()
-	// test_makeIncrementer()
+	// test_makeAdder()
+	test_makeIncrementer()
 }
 
 //
@@ -23,7 +23,7 @@ func main() {
 // to a number.
 //
 func makeAdder(n int) func(int) int {
-	return func(a int) int {
+	return func(a int) int { // lambda function
 		return a + n
 	}
 }

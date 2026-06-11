@@ -30,10 +30,10 @@ func nextWord(s string) (string, string) {
 }
 
 func words(s string) []string {
-	words := []string{} // initially empty slice of words
+	words := []string{} 
 	for s != "" {
-		word, remaining := nextWord(s)
-		words = append(words, word)
+		w, remaining := nextWord(s)
+		words = append(words, w)
 		s = remaining
 	}
 	return words
@@ -44,7 +44,7 @@ func quote(s string) string {
 }
 
 func main() {
-	s := "  This is a test. "
+	s := "  Hello, world! "
 	word, remaining := nextWord(s)
 	fmt.Println("     word:", quote(word))
 	fmt.Println("remaining:", quote(remaining))

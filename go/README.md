@@ -148,7 +148,7 @@ Function and closure examples:
 [point/main.go](examples/point/main.go) shows how to implement an (x, y) point
 type, and to use the `Stringer` interface to print it.
 
-[shapes/main.go](examples/shapes/main.go) shows how to use interfaces to implement
+[shapes/main.go](examples/sha pes/main.go) shows how to use interfaces to implement
 a generic function that works with any shape that you pass it.
 
 More examples are in these notes [interfaceDemo.md](interfaceDemo.md) and the
