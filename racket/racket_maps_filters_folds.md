@@ -301,7 +301,7 @@ call the first input `next` and the second input `accum`. The idea is that
 ## Challenge: filtering with fold
 
 Using just one call to `fold-right`, implement the function `(my-filter pred?
-lst)` that works just like `(my-filter pred? lst)`.
+lst)`.
 
 ## Folding consed-out lists
 
@@ -309,8 +309,8 @@ Many programmers find folds tricky to think about at first (and second, and
 third, ...). For example, what does `(fold-right cons '() '(a b c d))` evaluate
 to?
 
-Here is a perspective that can help with right folds. Any list can be written
-in consed-out form, e.g. `'(a b c d)` is:
+Here is a perspective that can help with right folds. Any list can be written in
+consed-out form, e.g. `'(a b c d)` is:
 
 ```scheme
 > (cons 'a (cons 'b (cons 'c (cons 'd '()))))
@@ -397,9 +397,9 @@ The function `deep-count` was an example in previous notes:
 This implementation is straightforward. Its body is a `cond` that handles all
 the possible cases of items on a list (plus the special case of the empty list).
 
-A more functional way to implement is this is to use `foldr` and `map`. The idea
-of this implementation is to replace each item on the list with how many numbers
-it contains. There are three kinds of items:
+A more functional way to implement this is to use `foldr` and `map`. The idea of
+this implementation is to replace each item on the list with how many numbers it
+contains. There are three kinds of items:
 
 - A number is replaced by a 1.
 

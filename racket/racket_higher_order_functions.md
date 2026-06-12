@@ -1,3 +1,5 @@
+# Higher Order Functions in Racket
+
 **High order functions** are functions that either take other functions as
 input, or return functions as output. For instance, `map`, `filter`, and
 `fold-right` are all higher order functions. Here we discuss a few more.
@@ -7,7 +9,7 @@ input, or return functions as output. For instance, `map`, `filter`, and
 
 The usual way of evaluating function calls in [Racket] is like this:
 
-```scheme
+```lisp
 > (* 1 2 3)
 6
 > (cons 'cherry '(ice cream))
@@ -18,7 +20,7 @@ The usual way of evaluating function calls in [Racket] is like this:
 
 An alternative way is to use `apply`:
 
-```scheme
+```lisp
 > (apply * '(1 2 3))
 6
 > (apply cons '(cherry (ice cream)))
@@ -35,7 +37,7 @@ Notice in the example using `map` that quasiquoting is used to ensure that
 `even?` refers to the function `even?`, and *not* the symbol `'even?`. Quoting
 the entire list would cause an error:
 
-```scheme
+```lisp
 > (apply map '(even? (2 3 4 5)))
 ; map: contract violation
 ;   expected: procedure?
@@ -49,7 +51,7 @@ error when it's passed to `map` (which is expecting a function).
 
 Here's another example of `apply` taken from a unit testing framework:
 
-```scheme
+```lisp
 ;; f is the function you want to test
 ;; test-pair has the form ((args) expected-result)
 (define (check-one-case f test-pair)
@@ -64,7 +66,7 @@ Here's another example of `apply` taken from a unit testing framework:
 This particular testing framework separates the function being tested from it's
 input, e.g.:
 
-```scheme
+```lisp
 (define (abs-diff-bad x y)
   (- x y))
 
@@ -80,7 +82,7 @@ input, e.g.:
 
 The `eval` function takes an entire list as input and evaluates it:
 
-```scheme
+```lisp
 > (eval '(* 1 2 3))
 6
 > (eval '(cons 'cherry '(ice cream)))
@@ -114,7 +116,7 @@ to without the need to run the code.
 
 Consider this [Racket] code:
 
-```scheme
+```lisp
 (define x 1)
 (define f (lambda (x) (g 2)))
 (define g (lambda (y) (+ x y)))  ;; Which x does this refer to?
@@ -214,7 +216,7 @@ value)` pairs. The function is allowed to use variables from this environment.
 
 For example, consider this code:
 
-```scheme
+```lisp
 (define f
     (lambda (n)
         (+ n 1)))
@@ -227,7 +229,7 @@ For example, consider this code:
 
 Now consider this:
 
-```scheme
+```lisp
 (define (make-adder n)
     (lambda (x) (+ n x))  ;; n is outside the lambda function
 )
@@ -245,7 +247,7 @@ binding of `n` is a closure.
 
 Conceptually, you can think of a closure as being a **let over lambda**:
 
-```scheme
+```lisp
 (define g1
     (let ([n 1])
         (lambda (x)
@@ -303,7 +305,7 @@ explicit type information in its source code.
 Using closures, it's possible to simulate object-oriented programming. A closure
 can contain both functions and variables, as in this example:
 
-```scheme
+```lisp
 ;; (set! x val) assigns val to x, i.e. it actually
 ;; changes what x refers to
 (define (make-counter name)
@@ -348,7 +350,7 @@ the composition of $f$ and $g$ is $f(g(x)) = g(x)^2 = (2x + 1)^2 = 4x^2 + 4x +
 
 In [Racket], we can compose functions directly by calling them:
 
-```scheme
+```lisp
 (define (f x) (* x x))
 (define (g x) (+ (* 2 x) 1))
 (define (h x) (f (g x)))
@@ -367,14 +369,14 @@ We can also write a function that composes functions. For instance, the `comp`
 function takes two single-input functions as input and returns their
 composition:
 
-```scheme
+```lisp
 (define (comp f g)
     (lambda (x) (f (g x))))
 ```
 
 This lets us define `h` from above without explicitly using `x`:
 
-```scheme
+```lisp
 (define h (comp f g))
 
 > (h 2)
@@ -383,7 +385,7 @@ This lets us define `h` from above without explicitly using `x`:
 
 Here we define a function that returns the second element of a list:
 
-```scheme
+```lisp
 (define my-second (comp first rest))
 ```
 
@@ -394,13 +396,13 @@ can think of this as saying that `my-second` is a function that first applies
 The `twice` function takes a function, `f`, as input and returns `f` composed
 with itself, i.e. $f \circ f$:
 
-```scheme
+```lisp
 (define (twice f) (comp f f))
 ```
 
 For instance:
 
-```scheme
+```lisp
 (define garnish 
     (twice (lambda (x) (cons 'cheese x)))
 )
@@ -411,7 +413,7 @@ For instance:
 
 We can generalize `comp` as follows:
 
-```scheme
+```lisp
 (define (compose-n f n)
     (if (= n 1)
         f
@@ -444,7 +446,7 @@ a list. Instead writing `(compose-all (list f1 f2 ... fn))`, we write
 `(compose-all f1 f2 ... fn)`. Using this trick require a special form of
 `define`:
 
-```scheme
+```lisp
 (define (compose-all . fns)  ;; fns is the list of arguments
   ;; ...
 )
@@ -456,7 +458,7 @@ the arguments passed to it. So when `(compose-all f1 f2 f3)` is called, `fns` is
 
 Here's a complete implementation of `compose-all`s:
 
-```scheme
+```lisp
 ;; (compose-all f1 f2 ... fn) 
 ;; returns (f1 (f2 ... (fn x) ...))
 (define (compose-all . fns)
@@ -477,7 +479,7 @@ end up calling something like `(compose-all (list f2 f3))`, which is incorrect.
 
 Here's an example of how `compose-all` can be useful:
 
-```scheme
+```lisp
 ;; helper functions
 
 (define (sort-increasing lst) (sort lst <=))
@@ -500,7 +502,7 @@ Here's an example of how `compose-all` can be useful:
 `compose-all` applies the functions in *reverse* order. Some programmers find
 that unnatural, and so prefer this variation:
 
-```scheme
+```lisp
 ;; Same as compose-all, except functions are applied in
 ;; reverse of order they are given, i.e.
 ;; (pipeline f1 f2 ... fn) returns 
@@ -511,7 +513,7 @@ that unnatural, and so prefer this variation:
 
 Now we can write the functions in the order they're applied:
 
-```scheme
+```lisp
 ;; for pipeline, the listed functions are applied in the
 ;; order they are given, i.e. the first thing f2 does is
 ;; filter out non-positive values
@@ -531,7 +533,7 @@ a series of functions that take 1 input each.
 
 Here are two different ways to write the addition function:
 
-```scheme
+```lisp
 (define add_a          ;; uncurried
     (lambda (x y)
         (+ x y)))
@@ -555,14 +557,14 @@ returns the answer.
 The nice thing about `add_b` is that if we give it only a single input `n`, the
 we get a function that might actually be useful:
 
-```scheme
+```lisp
 (define add5 (add_b 5))
 ```
 
 In [Racket], most functions are *not* written in a curried style. We can write a
 function that converts a non-curried function into a curried one:
 
-```scheme
+```lisp
 ;; given a 2-parameter uncurried function, returns a curried version
 (define (curry2 f)
   (lambda (x)
@@ -572,7 +574,7 @@ function that converts a non-curried function into a curried one:
 
 `curry2` assumes `f` takes exactly 2 inputs:
 
-```scheme
+```lisp
 (define add5 ((curry2 +) 5))
 
 > (add5 3)
@@ -582,7 +584,7 @@ function that converts a non-curried function into a curried one:
 `+` is a pre-defined 2-argument function, and so `(curry2 +)` is equivalent to
 this:
 
-```scheme
+```lisp
 (lambda (x)    ;; curried version of +
   (lambda (y)
     (+ x y)))
@@ -590,7 +592,7 @@ this:
 
 Thus `((curry2 +) 5)` is this:
 
-```scheme
+```lisp
 (lambda (y)
   (+ 5 y))
 ```
@@ -598,14 +600,14 @@ Thus `((curry2 +) 5)` is this:
 Here's a another example. Recall that `(filter pred? lst)` returns a new list
 containing just the elements of `lst` that satisfy the predicate `pred?`:
 
-```scheme
+```lisp
 > (filter odd? '(1 2 3 4 5))
 '(1 3 5)
 ```
 
 We could write a curried version like this:
 
-```scheme
+```lisp
 (define keep-odds ((curry2 filter) odd?))
 
 > (keep-odds '(1 2 3 4 5))
@@ -614,7 +616,7 @@ We could write a curried version like this:
 
 Any function that takes 2 inputs can be curried. For example:
 
-```scheme
+```lisp
 ;; curried versions of some standard functions
 (define c_+ (curry2 +))
 (define c_cons (curry2 cons))
@@ -635,7 +637,7 @@ Any function that takes 2 inputs can be curried. For example:
 Finally, the `uncurry2` function takes a 2-argument curried function as input
 and returns a non-curried version of it:
 
-```scheme
+```lisp
 ;; converts a 2-argument curried function to a non-curried
 ;; function
 (define (uncurry2 f)
@@ -657,7 +659,7 @@ build many other functions, and are of interest in theoretical computer science.
 
 `(I x)` is the **identity function**, and it returns whatever you pass it:
 
-```scheme
+```lisp
 (define (I x) x)
 
 > (I 4)
@@ -672,7 +674,7 @@ build many other functions, and are of interest in theoretical computer science.
 
 The function `(M x)` takes a function `x` as input, and calls `x` on itself:
 
-```scheme
+```lisp
 (define (M x) (x x))
 
 > (M list)
@@ -695,13 +697,13 @@ same thing happens again and again forever.
 
 We could write `M` as a lambda function:
 
-```scheme
+```lisp
 (lambda (x) (x x))
 ```
 
 Then the call `(M M)` is the same as:
 
-```scheme
+```lisp
 ((lambda (x) (x x)) (lambda (x) (x x)))
 ```
 
@@ -715,14 +717,14 @@ The function `(K x)` returns a function that takes a single input `y`, and for
 any value of `y` returns `x`. In other words, it returns a *constant* function
 that always returns `x`:
 
-```scheme
+```lisp
 (define (K x) (lambda (y) x))
 ```
 
 ### The S Combinator
 Function `S3` takes 3 inputs:
 
-```scheme
+```lisp
 (define (S3 x y z)
   ((x z) (y z)))
 ```
@@ -730,7 +732,7 @@ Function `S3` takes 3 inputs:
 `S` is a curried version of `S3`. You can pass 0, 1, 2, or 3 arguments to `S`
 (you must always pass exactly 3 arguments to `S3`):
 
-```scheme
+```lisp
 (define S (curry S3))
 ```
 
@@ -742,14 +744,14 @@ calling: `S` calls `x` on `y`, but *first* it calls `x` on `z` and `y` on `z`.
 Interestingly, the identity function `I` can be defined in terms of `S` and `K`
 like this:
 
-```scheme
+```lisp
 (define (I x) ((S K K) x))
 ```
 
 To see why this is true, consider `(S K K)`. This calls `S` with two arguments,
 `K` and `K`, and is equivalent to this function:
 
-```scheme
+```lisp
 (lambda (z) ((K z) (K z)))
 ```
 
@@ -757,7 +759,7 @@ To see why this is true, consider `(S K K)`. This calls `S` with two arguments,
 return value will be `z`. So `((K z) (K z))` evaluates to `z`, and we can
 re-write the lambda function for `(S K K)` as:
 
-```scheme
+```lisp
 (lambda (z) z)
 ```
 
@@ -778,7 +780,7 @@ if you're curious.
 > It turns out there is a single function, called `X`, that can implement both
 > `S` and `K`:
 > 
->  ```scheme
+>  ```lisp
 >  (define (X x) ((x S) K))
 >  ```
 >  

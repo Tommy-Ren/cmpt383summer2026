@@ -7,7 +7,7 @@ command-line version.
 
 ## Coding Style
 
-Racket supports many different languages, and we will be using the core Raket
+Racket supports many different languages, and we will be using the core Racket
 language. To ensure this, put this line at the top of all your Racket source
 files:
 
@@ -30,19 +30,15 @@ study after Racket), which does not allow loops or mutating functions.
 ### Lecture 1,2 Racket: Basics
 
 - [Introduction to Racket](racket_intro.md)
-- [hello_world.rkt](hello_world.rkt)
-- [hello_name.rkt](hello_name.rkt)
+- Sample programs:[hello_world.rkt](hello_world.rkt), [hello_name.rkt](hello_name.rkt)
 
 ### Lecture 3 Racket: Lists, Symbols, and Recursion
 
 - [Racket lists and recursion](racket_lists_and_recursion.md)
-- [count_up.rkt](count_up.rkt)
-- [count_down.rkt](count_down.rkt)
-- [numbered_list.rkt](numbered_list.rkt)
-- [primes.rkt](primes.rkt)
-- [stats.rkt](stats.rkt)
-- [bits.rkt](bits.rkt)
-- [sort.rkt](sort.rkt)
+- Sample programs: [count_up.rkt](count_up.rkt),
+  [count_down.rkt](count_down.rkt), [numbered_list.rkt](numbered_list.rkt),
+  [primes.rkt](primes.rkt), [stats.rkt](stats.rkt), [bits.rkt](bits.rkt),
+  [sort.rkt](sort.rkt)
 
 ### Lecture 4 Racket: Functional Programming
 

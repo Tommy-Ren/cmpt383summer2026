@@ -1,20 +1,20 @@
 # Lists and Recursion in Racket
 
-[Racket] has good built-in support for *singly-linked lists*, and it's the data
-structure we'll use most frequently. [Racket] functions are themselves lists, a
-feature known as [homoiconicity](https://en.wikipedia.org/wiki/Homoiconicity).
-Because of this, it's relatively easy to write [Racket] programs that manipulate
-other [Racket] programs.
+[Racket] has good built-in support for *singly-linked lists*. [Racket] functions
+are themselves lists, a feature known as
+[homoiconicity](https://en.wikipedia.org/wiki/Homoiconicity). Because of this,
+it's relatively easy to write [Racket] programs that manipulate other [Racket]
+programs.
 
 [Racket] supports vectors, strings, and hash tables as well, but we will almost
-never use those.
+never use those in this course.
 
 ## Making Lists
 
-Lists can be created in a number of different ways. Two common ways are the
-`list` function, and quoting:
+Lists can be created in a couple of ways. Two common ways are the `list`
+function, and quoting:
 
-```scheme
+```lisp
 > (list 1 2 3)
 '(1 2 3)
 > '(1 2 3)
@@ -37,12 +37,12 @@ Lists can be created in a number of different ways. Two common ways are the
 ```
 
 The last example shows a [Racket] list can contain *any type of value*, even
-other lists. The values on a list do *not* need to be the same type.
+other lists.
 
 Since `list` is a function, it's useful when you want to evaluate expressions
 *before* putting them on the list, e.g.:
 
-```scheme
+```lisp
 > (list (+ 1 2) (* 3 4) (- 5 6))
 '(3 12 -1)
 ```
@@ -50,7 +50,7 @@ Since `list` is a function, it's useful when you want to evaluate expressions
 The **empty list** is a list with 0 values, and is written as `'()`. Use `null?`
 or `empty?` to test if a list is empty:
 
-```scheme
+```lisp
 > (null? '(1 2))
 #f
 > (null? '())
@@ -71,7 +71,7 @@ or `empty?` to test if a list is empty:
 
 The `first` function returns the first element of a list:
 
-```scheme
+```lisp
 > (first '(1 2 3))
 1
 > (first '((1 2) 3 4))
@@ -88,7 +88,7 @@ The empty list has no first element, so `(first '())` is an error.
 
 The `rest` function returns everything on a list *except* for the first element:
 
-```scheme
+```lisp
 > (rest '(1 2 3))
 '(2 3)
 
@@ -115,7 +115,7 @@ The `rest` function returns everything on a list *except* for the first element:
 The `cons` function "constructs" a new list by adding an element to the start of
 a given list:
 
-```scheme
+```lisp
 > (cons 1 '(2 3))
 '(1 2 3)
 > (cons '(2 3) '(3 4))
@@ -128,7 +128,7 @@ a given list:
 
 `first`, `rest`, and `cons` work well together, e.g.:
 
-```scheme
+```lisp
 > (cons (first '(1 2 3)) (rest '(1 2 3)))
 '(1 2 3)
 ```
@@ -142,7 +142,7 @@ It can be useful to think of a list as a nested series of calls to `cons`. We
 will call this the **consed-out** form of the list. For example, the consed-out
 form of `'(a b c d)` is:
 
-```scheme
+```lisp
 > (cons 'a (cons 'b (cons 'c (cons 'd '()))))
 '(a b c d)
 ```
@@ -151,16 +151,16 @@ form of `'(a b c d)` is:
 
 The `first` of the `rest` of a list is its second element:
 
-```scheme
+```lisp
 > (first (rest '(a b c d)))
 'b
 ```
 
-[Racket] has a predefined function called `second` that does the same thing.
+([Racket] has a predefined function called `second` that does the same thing.)
 
 [Racket] even lets you do things like this:
 
-```scheme
+```lisp
 > ((first (list min max)) 41 2 3)
 2
 ```
@@ -172,10 +172,10 @@ Then `(list <min-fn> <max-fn>)` evaluates to the `(<min-fn> <max-fn>)`. So
 `(first (list min max))` becomes `(first (<min-fn> <max-fn))`, which is just
 `<min-fn>`.
 
-Notice that we used `list` in the above example. Using a `'` would *not* give
-the same result:
+Notice that we wrote `(list min max)` in the above example. Using a `'` would
+*not* give the same result:
 
-```scheme
+```lisp
 > ((first '(min max)) 41 2 3)
 . . application: not a procedure;
  expected a procedure that can be applied to arguments
@@ -194,7 +194,7 @@ while `(first '(min max))` is the *symbol* `'min`.
 
 `(cons x y)` lets you combine **any** two values:
 
-```scheme
+```lisp
 > (cons 2 3)
 '(2 . 3)
 > (cons 'a 'b)
@@ -208,7 +208,7 @@ short.
 
 `pair?` tests if a value is a pair:
 
-```scheme
+```lisp
 > (pair? '(1 . 2))
 #t
 > (pair? '(a . b))
@@ -228,13 +228,10 @@ pointers:
 
 Visual diagrams like this are called **cons cell diagrams**.
 
-> **Aside** If you want to implement your own version of LISP, starting with
-> cons cells is a good approach.
-
 The `car` and `cdr` functions access the elements in a pair. `(car p)` returns
 the *first* element, and `(cdr p)` returns the *second* element, e.g.:
 
-```scheme
+```lisp
 > (car '(a . b))
 'a
 > (cdr '(a . b))
@@ -251,7 +248,7 @@ the *first* element, and `(cdr p)` returns the *second* element, e.g.:
 
 Lists are nested pairs. Written as pairs, `'(3 4 5)` has this structure:
 
-```scheme
+```lisp
 > '(3 . (4 . (5 . ())))
 '(3 4 5)
 ```
@@ -264,7 +261,7 @@ It has the structure `'(3 . something)`, and so it's a pair.
 
 `list?` tests if a value is a list, e.g.:
 
-```scheme
+```lisp
 > (list? '(1 . 2))
 #f
 > (list? '(1 2))
@@ -281,11 +278,11 @@ you're not using any more? The answer is you never need to delete pairs in
 [Racket]. [Racket] uses **garbage collection**, which means that it keeps track
 of which pairs are in use, and automatically deletes the ones that aren't.
 
-LISP was one of the first languages to use garbage collection, and was probably
-one of the reasons why it didn't become mainstream. Garbage collection is
-automatic, but it does take time. Many of the computers that LISP ran on in the
-50s, 60s, 70s, and 80s were quite slow, and garbage collection pauses could be
-quite noticeable and occur at random times.
+LISP was one of the first languages to use garbage collection, and that was
+probably one of the reasons why it didn't become mainstream. Garbage collection
+is automatic, but it does take time. Many of the computers that LISP ran on in
+the 50s, 60s, 70s, and 80s were quite slow, and garbage collection pauses could
+be quite noticeable and occur at random times.
 
 But nowadays, garbage collection is almost unnoticeable in many languages.
 Faster computers with more memory, along with more efficient garbage collection
@@ -296,7 +293,7 @@ C#, and Go all use garbage collection.
 
 The built-in `length` function calculates the length of a list:
 
-```scheme
+```lisp
 > (length '(1 (2 3) 4))
 3
 ```
@@ -307,10 +304,11 @@ of long list could take a while.
 
 You can write your own version of `length` using recursion:
 
-```scheme
+```lisp
 (define (len lst)
-  (cond [(empty? lst) 0]                ;; base case
-        [else (+ 1 (len (rest lst)))])) ;; recursive case
+  (cond [(empty? lst) 0]              ;; base case
+        [else (+ 1 (len (rest lst)))] ;; recursive case
+))
 ```
 
 `len` has two cases:
@@ -332,21 +330,17 @@ function).
 
 ## Linear Search
 
-Recall that linear search determines if a value `x` is on a list. The `contains`
-function returns `#t` if `x` is on the list, and `#f` if it's not:
+Linear search determines if a value `x` is on a list. The `contains` function
+returns `#t` if `x` is on the list, and `#f` if it's not:
 
-```scheme
+```lisp
 ;; Returns true if x is in lst, and false otherwise.
 (define (contains x lst)
   (cond [(empty? lst)           #f]
         [(equal? x (first lst)) #t]
         [else (contains x (rest lst))]
-)))
+))
 ```
-
-`contains` has *two* base cases: one for the empty list, and one for when `x` is
-the first element.
-
 
 ## Challenge: linear search location
 
@@ -356,7 +350,7 @@ is 0. If `x` is not in `lst`, then return -1.
 
 For example:
 
-```scheme
+```lisp
 > (index-of 'a '(a 1 2 3 4))
 0
 > (index-of 'a '(0 1 2 a 4))
@@ -367,10 +361,10 @@ For example:
 
 ## Counting
 
-The `symbol?` function tests if an object is a symbol (such as `'cat`). To
-calculate the number of symbols in a list, we can do this:
+Using the `symbol?` function (which tests if an object is a symbol, such as
+`'cat`), we calculate the number of symbols in a list as follows:
 
-```scheme
+```lisp
 (define (count-sym1 lst)
   (cond
     [(empty? lst) 
@@ -381,9 +375,9 @@ calculate the number of symbols in a list, we can do this:
       (count-sym1 (rest lst))]))
 ```
 
-Alternatively, we could write it like this:
+We could write it more compactly like this:
 
-```scheme
+```lisp
 (define (count-sym2 lst)
   (if (empty? lst)
       0 
@@ -402,7 +396,7 @@ cases is whether we add a 1 or a 0.
 Now suppose we want to count *numbers* in a list instead of symbols. We can
 modify  `count-sym1` to get this:
 
-```scheme
+```lisp
 (define (count-num lst)
   (cond [(empty? lst) 0]
         [(number? (first lst))
@@ -415,10 +409,10 @@ instead of `symbol?`, and each occurrence of `count-sym1` is changed to
 `count-num`. Everything else is the same.
 
 Lets write a general-purpose counting function whose input is a list and a
-**predicate**. A predicate is what we call a function that takes one value as
-input and returns either `#t` or `#f`:
+**predicate**. A predicate is a function that takes one value as input and
+returns either `#t` or `#f`:
 
-```scheme
+```lisp
 (define (count-fn1 pred? lst)
   (cond [(empty? lst) 0]
         [(pred? (first lst))
@@ -432,7 +426,7 @@ signals to the programmer that it returns `#t` or `#f`.
 
 We can now count anything we have a predicate for:
 
-```scheme
+```lisp
 > (count-fn1 even? '(1 2 3 4 5 6 7))
 3
 > (count-fn1 odd? '(1 2 3 4 5 6 7))
@@ -447,7 +441,7 @@ We can now count anything we have a predicate for:
 
 We can re-write the previous functions using `count-fn1`:
 
-```scheme
+```lisp
 (define (count-symbol lst) (count-fn symbol? lst)))
 
 (define (count-number lst) (count-fn number? lst)))
@@ -455,7 +449,7 @@ We can re-write the previous functions using `count-fn1`:
 
 We can also write`count-fn1` in a slightly more compact way:
 
-```scheme
+```lisp
 (define (count-fn2 pred? lst)
   (if (empty? lst) 0
       (+ (if (pred? (first lst)) 1 0)
@@ -463,9 +457,10 @@ We can also write`count-fn1` in a slightly more compact way:
 ```
 
 ## Linear Search with a Predicate
+
 We can also do linear search using a predicate:
 
-```scheme
+```lisp
 (define (contains-fn pred? lst)
   (cond [(empty? lst) #f]
         [(pred? (first lst)) #t]
@@ -478,7 +473,7 @@ We can also do linear search using a predicate:
 
 For example, this tests if a list contains an even number:
 
-```scheme
+```lisp
 > (contains-fn even? '(1 3 5 6 9 9))
 #t
 > (contains-fn even? '(1 3 5 61 9 9))
@@ -487,7 +482,7 @@ For example, this tests if a list contains an even number:
 
 We can re-write `contains` like this:
 
-```scheme
+```lisp
 (define (contains x lst)
   (contains-fn (lambda (b) (equal? b x))
              lst))
@@ -505,7 +500,7 @@ few more examples to study.
 [Racket]'s built-in `reverse` function reverses the order of the elements of a
 list:
 
-```scheme
+```lisp
 > (reverse '())
 '()
 > (reverse '(cow))
@@ -521,7 +516,7 @@ list:
 The recursive idea for implementing `reverse` is to reverse the rest of the
 list, and then append the first item:
 
-```scheme
+```lisp
 (define (rev lst)
   (cond [(empty? lst) '()]
         [else (append (rev (rest lst))
@@ -543,7 +538,7 @@ list, and then append the first item:
 returns a new list consisting of all the given lists combined into a single
 list, one after the other:
 
-```scheme
+```lisp
 > (append '(1 2) '(3 4 5) '(6))
 '(1 2 3 4 5 6)
 > (append '(once) '(upon a) '(time))
@@ -552,7 +547,7 @@ list, one after the other:
 
 ### Other Functions
 
-```scheme
+```lisp
 ;;
 ;; Appends two lists together, i.e. returns the same
 ;; result as (append lst lst2).
@@ -573,12 +568,12 @@ list, one after the other:
          (cons (first lst) (remove-all x (rest lst)))]))
 
 ;;
-;; Replace all top-level occurrences of 'obama with 
+;; Replace all top-level occurrences of 'biden with 
 ;; 'trump.
 ;;
 (define (trumpify lst)
   (cond [(empty? lst) '()]
-        [(equal? 'obama (first lst))
+        [(equal? 'biden (first lst))
          (cons 'trump (trumpify (rest lst)))]
         [else
          (cons (first lst) (trumpify (rest lst)))]))
@@ -614,7 +609,7 @@ subset of all other lists.
 
 For example:
 
-```scheme
+```lisp
 > (my-subset? '() '())
 #t
 > (my-subset? '() '(1 2))
@@ -641,7 +636,7 @@ the set theory sense.
 
 For example:
 
-```scheme
+```lisp
 > (same-set? '(1 2 3) '(3 1 2))
 #t
 > (same-set? '(1 2 3 3) '(2 3 1 1 1 2))
@@ -660,7 +655,7 @@ If one list is longer than the other, then ignore the extra elements.
 
 For example:
 
-```scheme
+```lisp
 > (pairs '(a b c) '(1 2 3))
 '((a 1) (b 2) (c 3))
 > (pairs '(a b c) '(1 2))
@@ -678,7 +673,7 @@ returned list doesn't matter.
 
 For example:
 
-```scheme
+```lisp
 > (my-remove-duplicates '(1 2 3 2))
 '(1 3 2)
 > (my-remove-duplicates '(4 4 4))
@@ -687,8 +682,8 @@ For example:
 '(up and a way)
 ```
 
-[Racket] already has a built-in function called `remove-duplicates`. **Don't**
-use `remove-duplicates` in your function!
+[Racket] already has a built-in function called `remove-duplicates`. Of course,
+don't use it in your function!
 
 ## Challenge: finding multiples
 
@@ -699,7 +694,7 @@ doesn't matter.
 
 For example:
 
-```scheme
+```lisp
 > (keep-multiples '(a b c))
 '()
 > (keep-multiples '(a b a c))
@@ -723,7 +718,7 @@ Implement a function called `(maximum f lst)` that returns the value `x` in
 
 For example:
 
-```scheme
+```lisp
 > (maximum sum '((1 2 0 0 2) (9) (2 8 2 -2)))
 '(2 8 2 -2)
 > (maximum length '((1 2 0 0 2) (9) (2 8 2 -2)))
@@ -736,7 +731,7 @@ For example:
 
 `sum` is *not* a built-in [Racket] function. You can define it like this:
 
-```scheme
+```lisp
 (define (sum lst) (foldr + 0 lst))
 
 > (sum '(3 4 2))
@@ -756,7 +751,7 @@ The solution to this problem is similar to `count-num`, except we need to
 recognize when an element is a list, and for that list recursively count the
 number numbers in it.
 
-```scheme
+```lisp
 ;; Returns the number of numbers on lst, even numbers
 ;; inside of lists:
 (define (deep-count-num lst)       
@@ -800,14 +795,14 @@ Consider the problem of *flattening* a list, i.e. removing all the lists, and
 sub-lists, and leaving just the non-list elements in their original order. The
 built-in [Racket] function `flatten` function does this:
 
-```scheme
+```lisp
 > (flatten '(1 (a b) (c (d) ((e) g))))
 (1 a b c d e g)
 ```
 
 Here's an implementation of `flatten`:
 
-```scheme
+```lisp
 (define (my-flatten x)
   (cond [(empty? x) x]
         [(not (list? x)) x]
@@ -821,7 +816,7 @@ Here's an implementation of `flatten`:
 
 Using `flatten` we can re-write `deep-count-num` like this:
 
-```scheme
+```lisp
 (define (deep-count-num lst)
     (count-num (flatten lst)))
 ```
@@ -846,7 +841,7 @@ change. All nested sub-lists in `x` should be consed-out.
 
 For example:
 
-```scheme
+```lisp
 > (make-consed '())
 '()
 > (make-consed '(a b c))
@@ -861,7 +856,7 @@ and so symbols and the empty list that appear in it are **not** quoted.
 Since function definitions are lists, you can create their consed-out versions.
 Here's the consed-out version of `deep-count-num`:
 
-```scheme
+```lisp
 > (make-consed '(define (deep-count-num lst)
     (count-num (flatten lst))))
 '(cons
