@@ -51,7 +51,7 @@ with it.
 the base [Racket] language. To ensure you are using the correct language, make
 sure that all your [Racket] programs have this at the top:
 
-```scheme
+```lisp
 #lang racket
 ```
 
@@ -83,7 +83,7 @@ Here are a few useful keyboard shortcuts:
 `>` is the **interpreter prompt**, and means the interactive interpreter is
 waiting for you to type something, e.g.:
 
-```scheme
+```lisp
 > (* 2 3 5)
 30
 ```
@@ -96,7 +96,7 @@ The expression `(* 2 3 5)` calculates the product of 2, 3, and 5.
 which stands for **read-eval-print loop**. It lets us evaluate expressions one
 at a time. For instance:
 
-```scheme
+```lisp
 > (+ 3 2)
 5
 > (* 10 4)
@@ -115,84 +115,77 @@ program.
 
 ### Basic Arithmetic
 
-All [Racket] functions are called using **prefix** notation. For example, in
-[Racket] `(+ 3 2)` adds 3 and 2 together. It's prefix notation because the `+`
-is written first.
+All [Racket] functions are called using **prefix** notation: the function is
+written first, followed by the arguments. For example, in [Racket] `(+ 3 2)`
+adds 3 and 2 together. 
 
-Another interesting feature of [Racket] is that expressions are written as
-**lists**, and lists are delineated by **parentheses**: `(` marks the start of a
-list, and  `)` marks the end. For variety, we'll sometimes call these **round
-brackets**, or just **brackets** for short. As you will see, [Racket] programs
-can end up having a *lot* of brackets, and making sure they all match can be
-tricky: a good editor will help with the bracket matching.
+Expressions are written as **lists** delineated by **parentheses**: `(` marks
+the start of a list, and  `)` marks the end. For variety, we'll sometimes call
+these **round brackets**, or just **brackets** for short. As you will see,
+[Racket] programs can have a *lot* of brackets, and making sure they all match
+can be tricky: a good editor will help with the bracket matching.
 
-[Racket] also lets you use **square brackets** in place of  `[` and `]`, in
-place of parentheses anywhere you like. They are used only to make your code
-more readable, and `()`-brackets and `[]`-brackets are interchangeable. When we
-get to `cond` and `let`, we'll see how `[]`-brackets can help clarify what those
-expressions do.
+[Racket]  lets you use **square brackets** in place of  `[` and `]`, in place of
+parentheses anywhere you like. They are used only to make your code more
+readable, and `()`-brackets and `[]`-brackets are interchangeable. 
 
 Prefix notation has some features that you don't find with infix notation. For
 example, you can pass multiple arguments to many operations, e.g.:
 
-```scheme
+```lisp
 > (+ 3 2 3 5)
 13
-> (* 1 6 2 2)
-24
+> (* 1 2 3 4 5 6)
+720
 > (/ 100 10 5)
 2
 > (- 1 2 3)
 -4
 ```
 
-Also, the order of operations is never ambiguous in prefix notation. To evaluate
-an infix expression like $1 + 2 \cdot 3$, you must follow the convention that
+The order of operations is never ambiguous in prefix notation. To evaluate an
+infix expression like $1 + 2 \cdot 3$, you must follow the convention that
 multiplication is done *before* addition (e.g. [PEDMAS or
 BEDMAS](https://en.wikipedia.org/wiki/Order_of_operations#Mnemonics)). With
 infix notation, if you want to do addition first you need brackets, e.g. $(1 +
-2) \cdot 3$. With prefix notation, the order is always made explicit and so no
-rules order of evaluation rules are needed:
+2) \cdot 3$. However, with prefix notation, the order is always made explicit
+and so no rules order of evaluation rules are needed:
 
-```scheme
+```lisp
 > (+ 1 (* 2 3))    ;; 1 + 2 * 3
 7
 > (* (+ 1 2) 3)    ;; (1 + 2) * 3
 9
 ```
 
-Essentially, prefix notation requires that you *always* use brackets to make the
-order of operations clear. This makes [Racket]'s job of evaluating expressions
-easier, but the programmer must always be explicit about evaluation order.
-
 It can take some getting used to prefix notation, so here are a few more
 examples. To calculate $1^2+2^2+3^2$, you can do this:
 
-```scheme
-> (+ (* 1 1) (* 2 2) (* 3 3))
+```lisp
+> (+ (* 1 1) (* 2 2) (* 3 3))  ;; 1^2 + 2^2 + 3^2
 14
 ```
 
 $(1+2)(3+4)(5+6)$ is this:
 
-```scheme
-> (* (+ 1 2) (+ 3 4) (+ 5 6))
+```lisp
+> (* (+ 1 2) (+ 3 4) (+ 5 6))  ;; (1+2)(3+4)(5+6)
 231
 ```
 
 The formula for the volume of a sphere is $\frac{4}{3}\pi r^3$, and a sphere of
 radius 5.2 has volume $\frac{4}{3}\pi 5.2^3$:
 
-```scheme
-> (* 4/3 pi 5.2 5.2 5.2)
+```lisp
+> (* 4/3 pi 5.2 5.2 5.2)      ;; 4/3 * pi * 5.2^3
 588.9774131146049
-> (* (/ 4 3) pi 5.2 5.2 5.2)
+> (* (/ 4 3) pi 5.2 5.2 5.2)  ;; 4/3 * pi * 5.2^3
 588.9774131146049
 ```
 
 `pi` is a pre-defined [Racket] constant:
 
-```scheme
+```lisp
 > pi
 3.141592653589793
 ```
@@ -222,7 +215,7 @@ are some comments on that section.
 
 Strings in [Racket] are similar to strings in other languages:
 
-```scheme
+```lisp
 > "a"                  ;; a string
 "a"
 > "a racket is \"an illegal scheme\""   ;; \" inside strings
@@ -231,7 +224,7 @@ Strings in [Racket] are similar to strings in other languages:
 
 **Symbols** and **quoted lists** are usually indicated with a `'`.
 
-```scheme
+```lisp
 > 'a                   ;; a symbol
 'a
 > '(a b 1 (2 3) ())    ;; quoted list
@@ -243,7 +236,7 @@ key idea in [Racket].
 
 [Racket] has built-in support for rational numbers and complex numbers:
 
-```scheme
+```lisp
 > (+ 1/3 1/3 1/3)      ;; 1/3 is a rational type
 1
 > 5/25
@@ -256,7 +249,7 @@ key idea in [Racket].
 example, relational  operators such as `<`, `<=`, `>` and `>=` compare numbers
 and return booleans:
 
-```scheme
+```lisp
 > (< 2 3)
 #t
 > (< 2 2)
@@ -274,7 +267,7 @@ sorted order.
 
 `=` tests if two or more numbers are the same, e.g.:
 
-```scheme
+```lisp
 > (= 2 3)
 #f
 > (= 2 2 2)
@@ -298,13 +291,13 @@ function tests if two values --- which might not be numbers --- are the same.
 ## Symbols and Quoting
 
 **Symbols** are a kind of value that are not found in many other mainstream
-languages. [Racket] symbols start with a `'`, i.e . a **single-quote**, or
-**quote** for short, followed by one or more characters. For example, `'a`,
+languages. [Racket] symbols start with a `'`, i.e . a **single-quote** (or
+**quote** for short), followed by one or more characters. For example, `'a`,
 `'x28`, `'hamster`, and `'color-of-first-shape` are all examples of symbols.
 
 `symbol?` tests if a value is a symbol:
 
-```scheme
+```lisp
 > (symbol? 'a)
 #t
 > (symbol? 'x28)
@@ -337,7 +330,7 @@ from. If you do, use a string instead.
 The quote, `'`, in front of symbols is important because it distinguishes
 symbols from variables. For example, `x` is a variable, while `'x` is a symbol:
 
-```scheme
+```lisp
 > (symbol? 'x)
 #t
 > (symbol? x)
@@ -351,7 +344,7 @@ anything, so there's an error.
 
 Like numbers, symbols evaluate to themselves:
 
-```scheme
+```lisp
 > 'a
 'a
 > 'cat
@@ -364,7 +357,7 @@ This contrasts with variables, which evaluate to the value they're bound to.
 
 You can also quote lists, e.g.:
 
-```scheme
+```lisp
 > (+ 2 3)
 5
 > '(+ 2 3)
@@ -373,7 +366,7 @@ You can also quote lists, e.g.:
 
 `'(+ 2 3)` is *not* a symbol. Instead, it's a list:
 
-```scheme
+```lisp
 > (symbol? '(+ 2 3))
 #f
 > (list? '(+ 2 3))
@@ -382,7 +375,7 @@ You can also quote lists, e.g.:
 
 If you don't put a `'` in front of the list, then it evaluates to 5:
 
-```scheme
+```lisp
 > (list? (+ 2 3))   ;; same as (list? 5)
 #f
 ```
@@ -393,7 +386,7 @@ runs, and it evaluates to 5. `'(+ 2 3)` is just *data*, and it doesn't run. `'(+
 
 Another way of quoting expressions in [Racket] is to use `quote`:
 
-```scheme
+```lisp
 > (quote (+ 2 3))
 '(+ 2 3)
 ```
@@ -404,7 +397,7 @@ example of a **special form**: it does *not* evaluate its argument.
 In general, `(quote x)` is the same as `'x`. The single-quote form is usually
 preferred because it has fewer brackets and is easier to read, e.g.:
 
-```scheme
+```lisp
 > (symbol? (quote (+ 2 3)))
 #f
 > (list? (quote (+ 2 3)))
@@ -447,7 +440,7 @@ Other functions, such as `symbol?` and `list?`, take a fixed number of arguments
 Since the function comes first in a function call list, an expression like `(2 3
 +)` is an *error* because 2 is not a function:
 
-```scheme
+```lisp
 > (2 3 +)
 . . application: not a procedure;
  expected a procedure that can be applied to arguments
@@ -456,22 +449,20 @@ Since the function comes first in a function call list, an expression like `(2 3
 ```
 
 [Racket]'s syntax for calling functions is consistent and simple, and some
-programmers come to like it once they get used to it. But a significant
-downside for many programmers is that arithmetic expressions also follow it,
-i.e. [Racket] arithmetic is prefix instead of infix. Some programmers really
-dislike prefix arithmetic --- why give up all the work they did learning the
-rules of infix? Prefix arithmetic and list notation are often cited as
-significant reasons why LISP-like languages are not more popular.
-
+programmers come to like it once they get used to it. But a significant downside
+for many programmers is that arithmetic expressions are prefix instead of
+infix. Some programmers really dislike prefix arithmetic --- why give up all the
+work they did learning the rules of infix? Prefix arithmetic and list notation
+are often cited as significant reasons why LISP-like languages are not more
+popular.
 
 ## Simple Definitions
 
-The `(define some-var some-val)` form is used to define identifiers and
-functions.
+The `(define var val)` form is used to define identifiers and functions.
 
 We can use `define` to give identifiers a value:
 
-```scheme
+```lisp
 (define scale 4.5)
 (define title "Dr. Racket")
 ```
@@ -480,7 +471,7 @@ These two lines can be typed into the **definitions window** of DrRacket. After
 clicking "Run" (or typing ctrl-*R*), you can use `scale` and `title` in
 expressions:
 
-```scheme
+```lisp
 > (* scale 5)
 22.5
 > (string-append title "!!!")
@@ -489,7 +480,7 @@ expressions:
 
 Function definitions typically use this form:
 
-```scheme
+```lisp
 (define (inc n) (+ 1 n))
 ```
 
@@ -497,7 +488,7 @@ This defines a function named `inc` that takes one input, here called `n`, and
 returns one more than `n`. It is up to the programmer to make sure that only
 numbers are passed to `inc`, otherwise you get an error:
 
-```scheme
+```lisp
 > (inc 5)
 6
 > (inc "five")
@@ -508,10 +499,11 @@ numbers are passed to `inc`, otherwise you get an error:
   other arguments...:
 ```
 
-**Be careful!** You can use `define` to change the meaning of built-in [Racket]
-forms. For example, you can define `define` to be some other value:
-```scheme
-> > (define x 5)
+**Be careful!** `define` change the meaning of built-in [Racket] forms. For
+example, you can define `define` to be some other value:
+
+```lisp
+> (define x 5)
 > x
 5
 >> (define define 'make)
@@ -529,7 +521,7 @@ Now `define` no longer works! You must re-run the interpreter to fix it.
 
 Here's another example of a function, this time one with **side-effects**:
 
-```scheme
+```lisp
 (define (greet name)
   (printf "Welcome to Racket ~a!" name)
   (newline)
@@ -539,7 +531,7 @@ Here's another example of a function, this time one with **side-effects**:
 
 It is called like this:
 
-```scheme
+```lisp
 > (greet "Alan")
 Welcome to Racket Alan!
 I hope you learn a lot.
@@ -549,14 +541,12 @@ I hope you learn a lot.
 **side-effects**, i.e. for what it prints to the screen. When you call a
 function, anything that changes *outside* of a function --- such as printing to
 the screen, reading from a file, setting a global variable, etc. --- is a
-side-effect of the function. In general, we will try to avoid side-effects in
-[Racket] whenever possible. Unnecessary side-effects tend to make programs more
-complicated and error-prone.
+side-effect of the function.
 
-A function with no side effects, and always returns the same output for the same
-input, is called a **pure function**. Regular mathematical functions are pure
-functions, and in this course it's the kind of function we'll deal with most
-often.
+If a function has no side effects, and always returns the same output for the
+same input, then it is called a **pure function**. Regular mathematical
+functions are pure functions, and it's often a good idea to make function pure
+if you can.
 
 
 ## Quasiquoting
@@ -564,7 +554,7 @@ often.
 A **quasiquote** is a backwards quote mark in [Racket], and it is a more general
 form of regular quoting. For example:
 
-```scheme
+```lisp
 > (define lst '(a b c))
 
 > `(letters ,lst and chars ,@lst)
@@ -577,9 +567,7 @@ expression, as shown.
 
 In practice, quasiquoting can make some [Racket] expressions much more compact
 and easier to read. For instance, it is often used with the `match` form, or
-when constructing complex lists. Like many features of [Racket], quasiquoting
-can be confusing and intimidating at first, but once you get used to it it can
-be a very useful feature.
+when constructing complex lists.
 
 ### Challenge: quasiquoted lists
 
@@ -588,7 +576,7 @@ and then check your answer in the [Racket] interpreter.
 
 Assume the following definitions:
 
-```scheme
+```lisp
 (define scores '(1 3 2))
 (define pets '(dog cat))
 ```
@@ -612,7 +600,7 @@ There are a couple of ways of writing [Racket] source code comments:
 - `;` is a single-line comment: characters after `;` and to the end of the line
   are ignore, e.g.:
 
-  ```scheme
+  ```lisp
   ; single-line comments start with ";" in Racket
   
   ;;;
@@ -623,7 +611,7 @@ There are a couple of ways of writing [Racket] source code comments:
 - `#|` and `|#` can mark multi-line comments: `#|` is the start of the comment
   and `|#` is the end of the comment, e.g.:
 
-  ```scheme
+  ```lisp
   #|
 
     This is an example of a 
@@ -634,7 +622,7 @@ There are a couple of ways of writing [Racket] source code comments:
 
 - `#;` comments out an entire expression, e.g.:
 
-   ```scheme
+   ```lisp
     #;(define (nlist? n lst)
       (and (list? lst) 
            (= n (length lst))))
@@ -649,7 +637,7 @@ other languages.
 **Conditionals** make *decisions*. The `if` form is like an if-then-else
 statement in other languages, and it always has this format:
 
-```scheme
+```lisp
 (if <test> <true-result> <false-result>)
 ```
 
@@ -661,20 +649,21 @@ Importantly, `if` --- like all other [Racket] conditionals --- *returns* its
 result. It's like the `?:` operator in C++ and [Java]. So we can use `if` forms
 inside other calculations, e.g.:
 
-```scheme
+```lisp
 (define x 2)
 (define y 3)
 
 > (* 2 (if (< x y) y x))
 6
-> (- (if (< x y) y x) (if (> x y) y x))
+> (- (if (< x y) y x) 
+     (if (> x y) y x))
 1
 ```
 
 The last expression calculates the max of `x` and `y` minus the min of `x` and
 `y`. So we could have written these function definitions:
 
-```scheme
+```lisp
 (define (mymax x y)   ;; max and min are already defined in
     (if (> x y) x y)) ;; Racket, so we call these mymax/mymin
 
@@ -687,7 +676,7 @@ The last expression calculates the max of `x` and `y` minus the min of `x` and
 
 Or we could define one function to do the entire calculation:
 
-```scheme
+```lisp
 (define (abs-diff x y)
   (if (< x y)
       (- y x)
@@ -701,7 +690,7 @@ The `and` form calculates the logical "and" of 0 or more boolean expressions:
 `(and <test1> <test2> ...)` returns `#t` just when *all* of the tests evaluate
 to true, and `#f` otherwise. For example:
 
-```scheme
+```lisp
 > (and)
 #t
 > (and (= 2 3))
@@ -712,15 +701,15 @@ to true, and `#f` otherwise. For example:
 #f
 ```
 
-Importantly, `and` uses **short-circuiting**: the inputs to `and` are evaluated
-in the order they're given (left to right), and after the first one evaluates to
-`#f`, the expression immediately returns `#f` without evaluating any more of the
+Importantly, `and` uses **short-circuiting**: its inputs are evaluated in the
+order they're given (left to right), and after the first one evaluates to `#f`,
+the expression immediately returns `#f` without evaluating any more of the
 expressions.
 
 For example, the following function relies on the fact that `and` is
 short-circuited:
 
-```scheme
+```lisp
 (define (good-password x)
   (and (string? x)                   ;; must be a string
        (<= 8 (length x))             ;; at least 8 chars
@@ -729,17 +718,15 @@ short-circuited:
 ```
 
 `(good-password s)` returns `#t` if `s` is a "good" password, and `#f`
-otherwise. The first thing it checks is that `s` is indeed a string. If `s` is
-not a string, then the following calls to `length` and `string-contains?` would
-fail with an error. Since `and` is short-circuited, when `(string? x)` is `#f`
-the entire expression returns `#f` and the last two expressions are *never
-evaluated*.
+otherwise. First it checks is that `s` is indeed a string. If `s` is not a
+string, then, thanks to short-circuiting, the following calls to `length` and
+`string-contains?` are *not* evaluated.
 
 The `or` form is similar to `and`, and it evaluates logical "or": `(or <test1>
 <test2> ...)` returns `#t` if 1, or more, of the tests evaluate to true, and
 `#f` otherwise. For example:
 
-```scheme
+```lisp
 > (or)
 #f
 > (or (= 2 3))
@@ -755,14 +742,14 @@ to right), and soon as one evaluates to `#t` no further tests are evaluated and
 the entire expression evaluates to `#t`. For instance, this expression returns
 `#t` thanks to short-circuiting:
 
-```scheme
+```lisp
 > (or (= 2 2) (error "oops"))
 #t
 ```
 
 Changing the order of evaluation changes the results:
 
-```scheme
+```lisp
 > (or (error "oops") (= 2 2))
 . . oops
 ```
@@ -770,7 +757,7 @@ Changing the order of evaluation changes the results:
 Finally, `cond` form is similar to if-else-if structures in other languages. For
 example:
 
-```scheme
+```lisp
 (define (sign n)
   (cond [(not (number? n)) "not a number"]
         [(< n 0) "negative"]
@@ -790,7 +777,7 @@ example:
 
 In general, a `cond` form looks like this:
 
-```scheme
+```lisp
 (cond [test1 result1]
       [test2 result2]
       ...
@@ -812,14 +799,12 @@ value of the `cond`.
 A `cond` *doesn't* need to have an `else`: it's optional.
 
 It's important to understand that as soon as one test in the `cond` evaluates to
-true, all later tests (and results) are *not* evaluated. This means that `cond`
-is *not* a function (because all arguments to a function are evaluated), and is
-instead another example of a special form.
+true, all later tests (and results) are *not* evaluated.
 
 The use of `[]`-brackets in `cond` expressions is just a convention to improve
 readability, and you can use regular round brackets if you prefer. For instance:
 
-```scheme
+```lisp
 (define (sign n)
   (cond ((not (number? n)) "not a number")
         ((< n 0) "negative")
@@ -829,21 +814,20 @@ readability, and you can use regular round brackets if you prefer. For instance:
 ```
 
 `[]`-brackets *mean* the same thing as `()`-brackets, and so you can use them
-anywhere you like. In general, you should only use `[]`-bracket when they
-improve the readability of code.
+anywhere you like. In general, use `[]`-bracket when they improve the
+readability of code.
 
 ## Conditionals are Not Functions
 
-Suppose `x` is a variable that has already been defined, but we don't know what
-it's value is. The expression `(and (number? x) (= x 0))` is `#t` if `x` is a
-number equal to 0, and `#f` otherwise. If `x` happens to be a list, or some
-other non-numeric value, then the expression evaluates to `#f` thanks to the
-fact that `and` uses short-circuit evaluation.
+Suppose `x` is a variable that has already been defined, but we don't know it's
+value. The expression `(and (number? x) (= x 0))` is `#t` if `x` i equals to 0,
+and `#f` otherwise. If `x` happens to be a list, then `(= x 0)` is not
+evaluated.
 
 You might wonder if it's possible to write your own version of `and` as a
 function. Maybe something like this:
 
-```scheme
+```lisp
 (define (bad-and e1 e2)   
     (if e1 
         (if e2 #t #f)
@@ -856,38 +840,21 @@ This returns `#t` if both `e1` and `e2` are true, and `#f` otherwise. Also, if
 `e1` is false, then it knows the entire expression must be `#f`, and it doesn't
 evaluate `e2`.
 
-But this doesn't work in [Racket] because function arguments are evaluated
-*before* calling the function. Suppose `x` is defined to be the list `'(a b c)`,
-and consider what would happen if you evaluate `(bad-and (number? x) (= x 0))`:
+But this doesn't work. The problem is that [Racket] evaluates function arguments
+*before* passing them to the function. If `x` is a list, then `(number? x)` is
+`#f` and `(= x 0)` is an error. `(bad-and (number? x) (= x 0))` evaluates to
+`(bad-and #f error!)`: error! indicates that the expression had an error, and to
+the entire call to `bad-and` fails with an error.
 
-- First `(number? x)` is evaluated, and it evaluates to `#f` because `x` is the
-  list `'(a b c)`.
+Conditionals forms like `if`, `and`, `or`, and `cond` *don't immediately
+evaluate their arguments*. Since [Racket] functions do immediately evaluate
+their arguments, you cannot write these forms as functions.
 
-- Second, `(= x 0)` is evaluated, and this causes an error because you cannot
-  use a list with `=`:
-
-  ```scheme
-  > (= 0 '(a b c))
-  . . =: contract violation
-    expected: number?
-    given: '(a b c)
-    argument position: 2nd
-    other arguments...:
-  ```
-
-So the expression fails with an error before `my-and` is even called.
-
-Conditionals forms like `if`, `and`, `or`, and `cond` *don't evaluate their
-arguments*. Instead, their arguments are passed *unevaluated* so that the
-conditional can control when to evaluate the arguments.
-
-There is no way around this problem using [Racket] *functions*: conditional
-forms like `if`, `and`, `or`, and `cond` *cannot be written as functions*. But
-they can be written as **macros**. Macros are function-like definitions that
-*don't* evaluate their arguments, and let the body code decide when to evaluate
-them. Macros let you implement conditionals and other special forms (such as
-`define`). Macros are a more advanced topic that will be discussed a little
-later.
+There is no way around this problem using [Racket] *functions*. But they can be
+written as **macros**. Macros are function-like definitions that *don't*
+evaluate their arguments, and let the body code decide when to evaluate them.
+With macros, you implement conditionals and other special forms (such as
+`define`).
 
 
 ## Challenge: letter grades
@@ -913,7 +880,7 @@ such symbols.
 
 For example:
 
-```scheme
+```lisp
 > (grade 102)
 'A+
 > (grade 84.6)
@@ -933,21 +900,21 @@ that evaluates to a function. It's a function without a name.
 
 For example, this lambda function doubles its input:
 
-```scheme
+```lisp
 (lambda (n) (* 2 n))   ;; a lambda function
 ```
 
 The entire expression evaluates to a function that takes a single input, `n`,
 and returns two times `n`. You could use it directly like this:
 
-```scheme
+```lisp
 > ((lambda (n) (* 2 n)) 31)
 62
 ```
 
 You can also define a variable to be a function like this:
 
-```scheme
+```lisp
 (define double (lambda (n) (* 2 n)))
 
 > (double 31)
@@ -956,24 +923,24 @@ You can also define a variable to be a function like this:
 
 The definition is equivalent to this one:
 
-```scheme
+```lisp
 (define (double n) (* 2 n))
 ```
 
 In general, a lambda function has the format `(lambda (arg1 arg2 ... argn)
 body-expr)`.
 
-In [Racket], lambda functions are often used when you want to pass a function to
-another function. For example, consider the `twice` function:
+In [Racket], lambda functions are often used to pass a small function to another
+function. For example, consider the `twice` function:
 
-```scheme
+```lisp
 (define (twice f x)  ;; call f twice on input x
     (f (f x)))
 ```
 
 You can use `twice` like this:
 
-```scheme
+```lisp
 > (twice sqr 3)    ;; (sqr (sqr 3))
 81
 > (twice sqrt 3)   ;; (sqrt (sqrt 3))
@@ -984,16 +951,12 @@ You can use `twice` like this:
 
 The last example could instead have been written like this:
 
-```scheme
+```lisp
 (define (add6 x) (+ 6 x))
 
 > (twice add6 3)
 15
 ```
-
-In practice, a function like `add6` might only be used once, and it might be
-hard to come up with a good name. And so many [Racket] programmers use lambda
-functions for small, single-use functions like this.
 
 ## Challenge: making new functions
 
@@ -1008,7 +971,7 @@ input, and return a number. Implement the following two functions:
 
 For example:
 
-```scheme
+```lisp
 (define (f1 x) (+ (* 2 x) 5))
 (define (g1 x) (* x x))
 
@@ -1033,7 +996,7 @@ A **local variable**, or a **local binding** is a variable that is usable only
 within some clearly defined scope. In [Racket], local variables are introduced
 using a `let` form like this:
 
-```scheme
+```lisp
 (define (dist1 x1 y1 x2 y2)
   (let ([dx (- x1 x2)]
         [dy (- y1 y2)])
@@ -1043,7 +1006,7 @@ using a `let` form like this:
 `dx` and `dy` are local variables that only exist within the scope of the `let`
 form. In general, `let` has this format:
 
-```scheme
+```lisp
 (let ([v1 val1]
       [v2 val2]
       ...
@@ -1057,7 +1020,7 @@ The entire `let` form evaluates to whatever `body` evaluates to.
 As with `cond`, it is conventional (but not required) that `[]`-brackets enclose
 the bindings. You could write `let` like this if you prefer:
 
-```scheme
+```lisp
 (let ((v1 val1)  ;; ()-brackets can be used intead of 
       (v2 val2)  ;; []-brackets
       ...
@@ -1071,7 +1034,7 @@ readable, and so it is the preferred style.
 
 Consider this example of `let`:
 
-```scheme
+```lisp
 > (let ([a 1] [b 1] [c 2]) (+ a b c))
 4
 ```
@@ -1079,7 +1042,7 @@ Consider this example of `let`:
 There is a subtlety here that is worth exploring a bit. It could be re-written
 without `let` like this:
 
-```scheme
+```lisp
 > ((lambda (a b c) (+ a b c)) 1 1 2)
 4
 ```
@@ -1089,7 +1052,7 @@ function binds its input arguments to its formal parameters.
 
 Indentation makes the scope clearer:
 
-```scheme
+```lisp
 ( 
   (lambda (a b c) 
      (+ a b c)
@@ -1098,15 +1061,15 @@ Indentation makes the scope clearer:
 )
 ```
 
-The `let` version is much easier to read because it puts the variables right
-beside their assigned values. Here, the variables are quite far away from their
-values. But nonetheless, it shows that `let` can be built from simpler concepts.
+The `let` version is easier to read because it puts the variables right beside
+their assigned values. Here, the variables are far away from their values. But
+nonetheless, it shows that `let` can be built from simpler concepts.
 
 Notice that the scope of `a`, `b`, and `c` is limited to the lambda function
 they're defined in. You can't use `a`, `b`, or `c` outside of it. So this
 expression causes an error:
 
-```scheme
+```lisp
 ( 
   (lambda (a b c) 
      (+ a b c)
@@ -1117,7 +1080,7 @@ expression causes an error:
 
 If you re-write this as an equivalent `let` expression, you get this:
 
-```scheme
+```lisp
 (let ([a 1]
       [b a]  ;; error: a is out of scope here!
       [c 2]
@@ -1132,7 +1095,7 @@ lambda version we wrote above.
 This limitation is inconvenient in practice. And so [Racket] provides the `let*`
 form which removes this restriction:
 
-```scheme
+```lisp
 (let* ([a 1]
        [b a]  ;; ok: this is a let* environment
        [c 2]
@@ -1144,7 +1107,7 @@ form which removes this restriction:
 You can imagine that `let*` re-writes the expression using embedded `let` forms,
 perhaps like this:
 
-```scheme
+```lisp
 (let ([a 1])
     (let ([b a])     ;; ok: a is in scope
         (let ([c 2])
@@ -1156,7 +1119,7 @@ perhaps like this:
 
 Or even as plain lambdas:
 
-```scheme
+```lisp
 (
   (lambda (a)
       (
