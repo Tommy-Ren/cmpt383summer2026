@@ -7,6 +7,9 @@
   - [List comprehensions](python/comprehensions.py) ([solutions](python/comprehensions_sol.py))
 - [Go notes](go/README.md)
   - [Go problem set](go/Go_problemset.md)
-- Racket notes
-- Haskell notes
-- Prolog notes
+- [Racket notes](racket/README.md)
+  - [Racket problem set](racket/Racket_problemset.md)
+- [Haskell notes](haskell/README.md)
+  - Haskell problem set coming soon ...
+- [Prolog notes](prolog/README.md)
+  - [Prolog problem set](prolog/prolog_questions.md)
