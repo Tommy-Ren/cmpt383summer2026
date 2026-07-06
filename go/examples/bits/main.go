@@ -9,7 +9,7 @@ package main
 import "fmt"
 
 func main() {
-	n := 4
+	n := 3
 	fmt.Printf("%v-bit strings:\n", n)
 	bits := nbits(n)
 	for i, b := range bits {
@@ -30,7 +30,7 @@ func nbits(n int) []string {
 		// make two different copies of the (n-1)-bit strings
 		zero := append([]string{}, n1bits...)
 		one := append([]string{}, n1bits...)
-
+		fmt.Printf("%v | %v\n", zero, one)
 		for i := range n1bits {
 			zero[i] = "0" + zero[i]
 			one[i] = "1" + one[i]

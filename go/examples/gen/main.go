@@ -59,6 +59,6 @@ func TestFib() {
 }
 
 func main() {
-	// TestCounter()
-	TestFib()
+	TestCounter()
+	// TestFib()
 }
