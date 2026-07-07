@@ -10,6 +10,6 @@
 - [Racket notes](racket/README.md)
   - [Racket problem set](racket/Racket_problemset.md)
 - [Haskell notes](haskell/README.md)
-  - Haskell problem set coming soon ...
+  - [Haskell problem set](haskell/Haskell_problemset.md)
 - [Prolog notes](prolog/README.md)
   - [Prolog problem set](prolog/prolog_questions.md)
