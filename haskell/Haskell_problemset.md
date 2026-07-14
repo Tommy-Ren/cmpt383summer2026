@@ -40,8 +40,11 @@ Give the most general type signature for each of the following. Try to work it
 out yourself before checking with `:type` in GHCi.
 
 a. `('a', True, "cat")`
+
 b. `(:)`
+
 c. `\x y -> x : y`
+
 d. `filter`
 
 ## Question 4: Currying
