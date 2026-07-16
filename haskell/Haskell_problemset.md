@@ -78,9 +78,9 @@ average :: [Int] -> Int
 average xs = sum xs / length xs
 ```
 
-AI can, of course, trivially answer this question for you. But it's not the
-answer that it is important: it is you doing thinking through the problem and
-coming up with the answer yourself.
+AI can, of course, trivially answer this question for you. But try it yourself
+first. Going through the process of trying to figure it out yourself is an
+important part of learning.
 
 ## Question 8: Lambdas and sections
 
