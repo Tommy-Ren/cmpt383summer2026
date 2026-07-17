@@ -1,22 +1,42 @@
 -- demo.hs
 
-add x y = x + y
+-- equational definiton
+middle :: [a] -> [a]
+middle []     = []
+middle [_]    = []
+middle (_:xs) = reverse (tail (reverse xs))
 
-factorial n = product [1..n]
+pluralize :: String -> String
+pluralize "" = ""
+pluralize x  = x ++ (if last x == 's' 
+                     then "" 
+                     else "s")
 
-double x = x + x
-quadruple = double . double -- point free style
---quadruple x = double (double x)
+-- guarded equations
+sign n | n == 0    = "zero"
+       | n < 0     = "negative"
+       | otherwise = "positive"
 
-average lst = div (sum lst) (length lst)
+coin :: Int -> String
+coin 1  = "penny"
+coin 5  = "nickel"
+coin 10 = "dime"
+coin 25 = "quarter"
+coin _  = "unknown"
 
+nand :: Bool -> Bool -> Bool
+nand True True = False
+nand _    _    = True 
+-- nand False False = True
+-- nand False True  = True
+-- nand True  False = True
+-- nand True  True  = False
+-- truth table 
 
--- qsort []     = []
--- qsort (n:ns) = qsort smalls ++ [n] ++ qsort bigs
---              where smalls = [a | a <- ns, a <= n]
---                    bigs   = [b | b <- ns, b > n]
+get_expr :: [String] -> String
+get_expr [_,"+",_] = "addition"
+get_expr [_,"-",_] = "subtraction"
+get_expr _         = "unknown"
 
--- --mysum :: Num a => [a] -> a
--- mysum :: [Int] -> Int
--- mysum []     = 0
--- mysum (n:ns) = n + (mysum ns)
+firsts :: [a] -> [b] -> (a, b)
+firsts (x:_) (y:_) = (x, y)
