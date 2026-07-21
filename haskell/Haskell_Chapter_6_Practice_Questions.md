@@ -1,5 +1,3 @@
-#assignment #haskell
-
 Put your answer to these questions in a file named `chp6.hs`. **Don't** import any Haskell modules, and write all the code yourself.
 
 For all functions, include the most general type signature.
