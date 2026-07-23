@@ -2,6 +2,7 @@ Haskell has extensive support for types, and allows programmers to create new
 types in a number of ways.
 
 ## Type declarations
+
 A **type declaration** uses the `type` keyword, and creates a *synonym* for an
 existing type. For example, the Haskell prelude has this type declaration:
 
@@ -41,6 +42,7 @@ type Tree = (Int, [Tree]) -- Error! Recursion not allowed here
 ```
 
 ## Data declarations
+
 **Data declarations** create completely new types, as opposed to just synonyms
 for existing types. For example, the `Bool` type in the standard prelude is
 defined like this:
@@ -160,6 +162,7 @@ perimeter (Rect w h) = 2 * (w + h)
 > no inheritance happening here.
 
 ## Parameterized Data Declarations
+
 Haskell also lets you create **parameterized data declarations** that take one
 or more type variables.  For example, the type `Maybe a` is in the standard
 prelude:
@@ -237,6 +240,7 @@ Nothing
 ```
 
 ### Arithmetic with Maybe Numbers
+
 Suppose you want to add two `Maybe Double`s together. One way to do it is to
 return a `Double`:
 
@@ -309,6 +313,7 @@ Succ (Succ (Succ (Succ (Succ Zero))))
 ```
 
 ### Explain the bug: Nat successor
+
 In your own words, explain the bug in this code, and how you would fix it (i.e.
 re-write the code so it works):
 
@@ -406,6 +411,7 @@ list2hlist = foldright (:) []
 ```
 
 ## Example: Tautology checker
+
 The example given in the text shows how a data declaration can help make a
 "little language", in this case for propositional logic. Many functions for
 processing it mirror the structure the data declaration.
@@ -427,7 +433,9 @@ Note that this version of `bools` has a different signature than the one given
 in the textbook.
 
 ### Explain the bug: Nat successor
-In your own words, explain the bug in this code, and how you would fix it (i.e. re-write the code so it works):
+
+In your own words, explain the bug in this code, and how you would fix it (i.e.
+re-write the code so it works):
 
 ```haskell
 bools_bug :: Int -> [String]
@@ -441,6 +449,7 @@ The function is *intended* to return a list of all bit strings of length n, e.g.
 "100","101","110","111"]`.
 
 ### Challenge: modified bit strings
+
 Modify `bools2` so that `bools2 0` returns the empty list `[]`, and for all
 other values of `n` `bools2 n` returns the same result as `bools n`:
 
