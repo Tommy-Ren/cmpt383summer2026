@@ -136,4 +136,9 @@ perimeter (Rect w h) = 2 * (w + h)
 
 safeHead :: [a] -> Maybe a
 safeHead []    = Nothing
-safeHead (x:_) = x
+safeHead (x:_) = Just x 
+
+bools :: Int -> [String]
+bools 0 = [[]]
+bools n = map ('0':) bs ++ map ('1':) bs
+        where bs = bools (n-1)

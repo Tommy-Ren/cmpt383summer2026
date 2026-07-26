@@ -440,9 +440,10 @@ list2hlist = foldright (:) []
 
 The example given in the text shows how a data declaration can help make a
 "little language", in this case for propositional logic. Many functions for
-processing it mirror the structure the data declaration.
+processing it mirror the structure the data declaration. [Here is the tautology
+checker code](tautology.hs).
 
-Another interesting example is the clever method for generating all bit strings
+An interesting piece of the code is this function for generating all bit strings
 of a given length:
 
 ```haskell
@@ -451,12 +452,23 @@ bools 0 = [[]]
 bools n = map ('0':) bs ++ map ('1':) bs
         where bs = bools (n-1)
 
+> bools 3
+["000","001","010","011","100","101","110","111"]
+
 > take 3 (bools 10)
 ["0000000000","0000000001","0000000010"]
 ```
 
-Note that this version of `bools` has a different signature than the one given
-in the textbook.
+`bools n` generates all bit strings of length `n`. 
+
+The [text version](tautology.hs) uses `[Bool]` (a list of `Bool`s) instead of
+`String` (a list of `Char`s).
+
+This is an interesting example because it shows the power of Haskell. It very
+succinctly describes a small programming language for propositional logic, and
+then provides a function for checking if a proposition is a tautology. However,
+some programmers find it difficult to read and debug. It's not easy to trace the
+code by, say, adding print statements to see what's happening.
 
 ### Explain the bug: Nat successor
 
