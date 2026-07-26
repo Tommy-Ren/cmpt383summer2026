@@ -1,5 +1,7 @@
+# Notes on Chapter 8: Declaring Types and Classes
+
 Haskell has extensive support for types, and allows programmers to create new
-types in a number of usefulways.
+types in a number of useful ways.
 
 ## Type declarations
 

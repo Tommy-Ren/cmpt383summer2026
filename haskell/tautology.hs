@@ -69,7 +69,7 @@ eval _ (Const b)   = b
 eval s (Var x)     = find x s
 eval s (Not p)     = not (eval s p)
 eval s (And p q)   = eval s p && eval s q
-eval s (Imply p q) = eval s p <= eval s q  -- <= is implication when used with Bools
+eval s (Imply p q) = eval s p <= eval s q  -- <= means logical implication when used with Bools
 
 --
 -- Given a proposition, return the list of variables in the proposition.
