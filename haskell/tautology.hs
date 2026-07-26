@@ -33,16 +33,16 @@ p4 = Imply (And (Var 'A') (Imply (Var 'A') (Var 'B'))) (Var 'B')
 -- Substitutions
 
 --
--- The Assoc key val type represents an association list, which is a list of
+-- The Assoc key val type represents an *association list*, which is a list of
 -- key-value pairs. Finding, adding, and removing pairs is done using standard
 -- list functions.
 --
--- In most other modern languages, a *map* (e.g. dicitonaries in Python) would
--- be used instead. While association lists are simple, they are inefficent
--- compared to maps, i.e. association lists are O(n) for finding, adding, and
--- removing pairs, while maps are O(1) for those operations.
+-- In many other languages, a *map* (e.g. dictionaries in Python) would be used
+-- instead. While association lists are simple, they are inefficent compared to
+-- maps, i.e. association lists are O(n) for finding, adding, and removing
+-- pairs, while maps are O(1) for those operations.
 --
--- Haskell does have similarly efficieny data structires, e.g. check the
+-- Haskell does have similarly efficient data structures, e.g. check the
 -- Data.Map module.
 --
 
