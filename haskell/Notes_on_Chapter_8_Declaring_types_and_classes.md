@@ -198,7 +198,7 @@ error. For instance:
 ```haskell
 safeHead :: [a] -> Maybe a
 safeHead []    = Nothing
-safeHead (x:_) = x
+safeHead (x:_) = Just x
 ```
 
 ```haskell
