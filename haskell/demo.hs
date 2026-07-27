@@ -132,13 +132,13 @@ perimeter :: Shape -> Float
 perimeter (Circle r) = 2 * pi * r
 perimeter (Rect w h) = 2 * (w + h)
 
+--
+-- The Maybe type is pre-defined in the Haskell prelude. It is used to represent
+-- optional values, which can be useful in error checking.
+--
 -- data Maybe a = Nothing | Just a
 
 safeHead :: [a] -> Maybe a
 safeHead []    = Nothing
 safeHead (x:_) = Just x 
 
-bools :: Int -> [String]
-bools 0 = [[]]
-bools n = map ('0':) bs ++ map ('1':) bs
-        where bs = bools (n-1)

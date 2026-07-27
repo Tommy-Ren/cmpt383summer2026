@@ -445,8 +445,8 @@ The example given in the text shows how a data declaration can help make a
 processing it mirror the structure the data declaration. [Here is the tautology
 checker code](tautology.hs).
 
-An interesting piece of the code is this function for generating all bit strings
-of a given length:
+[tautology.hs](tautology.hs) gives a nice solution to the problem of generating
+all bit strings of a given length:
 
 ```haskell
 bools :: Int -> [String]
@@ -461,16 +461,13 @@ bools n = map ('0':) bs ++ map ('1':) bs
 ["0000000000","0000000001","0000000010"]
 ```
 
-`bools n` generates all bit strings of length `n`. 
+It's a nice example of succinct piece of code that uses recursion and
+higher-order functions to make a concise solution to a problem.
 
-The [text version](tautology.hs) uses `[Bool]` (a list of `Bool`s) instead of
-`String` (a list of `Char`s).
-
-This is an interesting example because it shows the power of Haskell. It very
-succinctly describes a small programming language for propositional logic, and
-then provides a function for checking if a proposition is a tautology. However,
-some programmers find it difficult to read and debug. It's not easy to trace the
-code by, say, adding print statements to see what's happening.
+However, not all programmers like this style of programming. They argue that
+such code is difficult to read and debug, especially for beginners. For
+instance, it's not easy to trace the code by, say, adding print statements to
+see what's happening.
 
 ### Explain the bug: Nat successor
 
@@ -484,23 +481,24 @@ bools_bug n = map ("0":) n1bits ++ map ("1":) n1bits
         where n1bits = bools_bug (n-1)
 ```
 
-The function is *intended* to return a list of all bit strings of length n, e.g.
-`bools_bug 3` should return `["000","001","010","011",
-"100","101","110","111"]`.
+The function is *intended* to return a list of all bit strings of length `n`,
+e.g. `bools_bug 3` should return `["000", "001", "010", "011", "100", "101",
+"110", "111"]`.
 
 ### Challenge: modified bit strings
 
-Modify `bools2` so that `bools2 0` returns the empty list `[]`, and for all
-other values of `n` `bools2 n` returns the same result as `bools n`:
+Modify `bools2` below so that `bools2 0` returns the empty list `[]`, and for
+all other values of `n` `bools2 n` returns the same result as `bools n`:
 
 ```haskell
 bools2 :: Int -> [String]
 bools2 0 = [[]]
 bools2 n = map ('0':) bs ++ map ('1':) bs
-         where bs = bools (n-1)
+         where bs = bools2 (n-1)
 ```
 
 The type signature should stay the same.
 
 ## Example: Abstract Machine
+
 See text.
