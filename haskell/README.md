@@ -3,6 +3,8 @@ Many of the following notes are based on the book [Programming in Haskell, 2nd e
 
 To run Haskell, follow the instructions on the [Haskell website](https://www.haskell.org/).
 
+Here is the [Haskell problem set](Haskell_problemset.md).
+
 The in-class Haskell quiz will be based on these notes:
 - (1 hour) [Notes on Chapter 1 Introduction](Notes_on_Chapter_1_Introduction.md), [Notes on Chapter 2 First steps](Notes_on_Chapter_2_First_steps.md)
 - (1 hour) [Notes on Chapter 3 Types and classes](Notes_on_Chapter_3_Types_and_classes.md)
@@ -17,8 +19,8 @@ The in-class Haskell quiz will be based on these notes:
 - (1 hour) [Notes on Chapter 8 Declaring types and classes](Notes_on_Chapter_8_Declaring_types_and_classes.md)
 
 Notes past this line are extra notes on Haskell, and will only be covered if
-there is time. Questions on notes after this will **not** appear on the in-class
-quiz or the final exam:
+there is time. If they are not discussed in class, they will **not** appear on
+the in-class quiz or the final exam:
 - (1 hour) [Notes on Chapter 10 Interactive programming](Notes_on_Chapter_10_Interactive_programming.md)
 - (2 hour) [Notes on Chapter 12 Monads and more](Notes_on_Chapter_12_Monads_and_more.md)
 - (1 hour): [Testing with QuickCheck](Testing_with_QuickCheck.md)
