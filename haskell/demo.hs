@@ -95,6 +95,12 @@ twice :: (a -> a) -> a -> a
 -- twice f x = (f . f) x
 twice f = f . f
 
+-- This shows a sequence of functions that can be applied to a list by calling
+-- sumSquaresEven lst. The functions are applied from right to left, i.e. first
+-- filter even, then map (^2), then sum.
+--
+-- In general, a composed expresison like h . g . f means apply f, then g, then
+-- h.
 sumSquaresEven = sum . map (^2) . filter even
 
 -- do f, then g, then h

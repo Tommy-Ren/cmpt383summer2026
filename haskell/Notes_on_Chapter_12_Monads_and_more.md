@@ -166,9 +166,9 @@ instance Functor Tree where
 This `fmap` applies the function `f` to every value in the tree.
 
 > **Note** The line `-- fmap :: (a -> b) -> Tree a -> Tree b` is a commented-out
-> type signature for `fmap`. It's usually a good idea to write down type
-> signatures when writing instances. Unfortunately, the `instance` structure
-> doesn't allow explicit type signatures. 
+> type signature for `fmap`. It's usually a good idea to write type signatures
+> when writing instances. Unfortunately, the `instance` structure doesn't allow
+> explicit type signatures.
 
 Haskell's standard list type already has `map`, but `fmap` works as well and is
 defined like this:
