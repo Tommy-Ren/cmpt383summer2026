@@ -3,7 +3,7 @@ import System.Random
 
 main :: IO ()
 main = do
-    putStrLn "Rolling until we get a 6..."
+    putStrLn "Rolling until we get a 6 ..."
     rollUntilSix 1
 
 rollUntilSix :: Int -> IO ()

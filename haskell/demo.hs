@@ -149,18 +149,29 @@ safeHead :: [a] -> Maybe a
 safeHead []    = Nothing
 safeHead (x:_) = Just x 
 
-add :: Maybe Double -> Maybe Double -> Double
-add Nothing  Nothing  = 0
-add Nothing  (Just n) = n
-add (Just n) Nothing  = n
-add (Just m) (Just n) = m + n
+-- add :: Maybe Double -> Maybe Double -> Double
+-- add Nothing  Nothing  = 0
+-- add Nothing  (Just n) = n
+-- add (Just n) Nothing  = n
+-- add (Just m) (Just n) = m + n
+
+add :: Maybe Double -> Maybe Double -> Maybe Double
+add Nothing  Nothing  = Nothing
+add Nothing  (Just n) = Nothing
+add (Just n) Nothing  = Nothing
+add (Just m) (Just n) = Just (m + n)
+
 
 -- Nat is a recursive data type representing the natural numbers 0, 1, 2, ...
 data Nat = Zero | Succ Nat
     deriving (Eq, Show)
 
 -- convert a Nat to an int
--- nat2int :: Nat -> Int 
+nat2int :: Nat -> Int
+nat2int Zero     = 0
+nat2int (Succ n) = 1 + nat2int n
 
 -- convert an int to a Nat
--- int2nat :: Int -> Nat
+int2nat :: Int -> Nat
+int2nat 0 = Zero
+int2nat n = Succ (int2nat (n-1))

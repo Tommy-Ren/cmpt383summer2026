@@ -1,4 +1,3 @@
-import qualified Control.Applicative as them
 -- greetUser.hs
 
 --

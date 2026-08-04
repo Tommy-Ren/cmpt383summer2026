@@ -25,7 +25,6 @@ import Control.Applicative (Alternative(some))
 -- i.e. it does not return a useful value.
 --
 
-
 main :: IO ()
 main = do
     putStrLn "Hello, world!"

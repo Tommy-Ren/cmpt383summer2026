@@ -622,8 +622,80 @@ it to `N`".
 
 ## Appending Lists
 
-Coming soon ...
+The `append` predicate concatenates two lists:
+
+```prolog
+append([], B, B).
+append([H|T], B, [H|Result]) :- append(T, B, Result).
+```
+
+The first rule is the case case. It says that the empty list plus any other is
+the list itself.
+
+The second rule is the recursive case, and it first appends the tail of the
+first list to the second list `B`, putting the result in `Result`. Then it
+prepends the head of the first list to the result for the final result.
+
+With it you can append two lists like this:
+
+```prolog
+?- append([1,2], [3,4,5], X).
+X = [1, 2, 3, 4, 5].
+```
+
+Or you could do this:
+
+```prolog
+?- append(X, [3,4,5], [1,2,3,4,5]).
+X = [1, 2].
+```
+
+Or even, which finds all pairs of lists that append to make the third list:
+
+```prolog
+?- append(X, Y, [1,2,3,4,5]).
+X = [],
+Y = [1, 2, 3, 4, 5] ;
+X = [1],
+Y = [2, 3, 4, 5] ;
+X = [1, 2],
+Y = [3, 4, 5] ;
+X = [1, 2, 3],
+Y = [4, 5] ;
+X = [1, 2, 3, 4],
+Y = [5] ;
+X = [1, 2, 3, 4, 5],
+Y = [] ;
+false.
+```
 
 ## Reversing a List
 
-Coming soon ...
+Here is a simple but inefficient way to reverse a list:
+
+```prolog
+rev([], []).
+rev([H|T], R):- rev(T, RevT), append(RevT, [H], R).
+```
+
+The first rule is the base case: the empty list reversed is the empty list.
+
+The second rule  reverses the tail of the list, puts the result in `RevT`, and
+then it appends the head of the list to the result for the final result.
+
+While this works, it is inefficient because it creates a new list for each step
+of the recursion. A better way to reverse a list is to use an *accumulator*:
+
+```prolog
+% initial called to rev2 with empty accumulator
+rev2(L, R) :- rev2(L, [], R).
+
+rev2([], Acc, Acc).
+rev2([H|T], Acc, R):- rev2(T, [H|Acc], R).
+```
+
+The idea of adding `Acc` is that it *accumulates* the reversed list as the
+function recurses. On each call one element is added to the accumulator at the
+front, which has the effect of reversing the list. Using accumulators is a
+common technique for speeding up recursive functions in Prolog and other
+languages.
